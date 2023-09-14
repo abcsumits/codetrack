@@ -1,0 +1,24 @@
+{%extends 'base.html' %}
+{% block start%}
+</head>
+
+<body>
+    {% include 'nav.html'%}
+    <div class="container mt-5 pt-5">
+        <div class="row ">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h2 class="display-1 mx-3 text-primary font-weight-bold">Ooops!</h2>
+                <div class="container">
+                    <h2>Page not Found!</h2>
+                    <h6 class="text-justify test-muted">
+                        It seems the page you were searching for has vanished into the digital ether. Fear not, though our virtual compass is ready to guide you back to familiar territory. 
+                        Feel free to return to our homepage or embark on a new journey through our website's offerings.                    </h5>
+                </div>
+            </div>
+            <div class="col-lg-6  mt-5">
+                <img  class="img-fluid " src="/static/notfound.png" alt="">
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+    {%endblock%}

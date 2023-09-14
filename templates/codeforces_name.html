@@ -1,0 +1,17 @@
+{%extends 'base.html' %} 
+{% block start%}
+</head>
+<body>
+    {% include 'nav.html'%}
+    <div class="container justify-content-center row mt-5 pt-5" style="margin: auto;">
+        <form method="post" class="col-lg-6 col-md-8 col-sm-12 mt-5 pt-5">
+            {% csrf_token %}
+            <h1 class="text-center mt-5 pt-5 text-primary" > <img class="img-fluid" src="/static/cf.png" alt="" style="width: 3rem;"> Codechef Username</h1>
+            <div class="form-outline mt-5 mb-4">
+              <input type="text" class="form-control mt-5" name="username" placeholder="Enter your Codeforces username" value="{{codeforces}}" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block mb-4">Submit</button>
+          </form>
+        </div>
+      
+{%endblock%}

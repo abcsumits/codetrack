@@ -1,0 +1,119 @@
+{%extends 'base.html' %}
+{% block start%}
+</head>
+<body>
+{% include 'nav.html' %}
+<section class="site-banner pt-5">
+    <div class="container">
+        <div class="row pt-2 m-5">
+            <div class="col-lg-6 col-md-12 site-title pt-5">
+                <h2 class="title-text"> Welcome to</h2>
+                <h1 class="title-text text-primary"><span class="text-dark">Code</span>Track</h1>
+                <h4 class="title-text"> Your Ultimate Coding Tracker Platform</h4>
+                <p class="text-dark">
+                    Are you an aspiring coder or a seasoned developer looking to conquer coding challenges on platforms like LeetCode, CodeForces, and CodeChef? 
+                    Managing your progress on multiple coding platforms can be a daunting task, but Coderack is here to simplify it for you.</p>
+                    {%if not request.user.is_authenticated %}
+                    <div class="site-buttons py-2">
+                        <a href="/login"><button  class=" px-5 btn btn-lg btn-primary">Get Started</button></a>
+                    </div>
+                    {% endif%}
+                </div>
+                <div class="col-lg-6 col-md-12 banner-image">
+                    <img src="/static/competitive.png"
+                    alt="banner" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="search-area">
+        <div class="container">
+            <div class="row pb-2 m-5 ">
+                <div class="col-md-12">
+                    <!-- Centered Div -->
+                    <h1 class="text-primary">Search Your Buddies here</h1> <hr>
+                    <div class="center-div mx-lg-5 ">
+                        <!-- Search Bar -->
+                        <form class="form-inline d-flex" id="searchForm">
+                            <input class="rounded-pill form-control flex-grow-1 mr-sm-2 p-4" id="searchInput" type="search" placeholder="Search a user" aria-label="Search" required>
+                            <button class="btn btn-outline-primary rounded-pill mr-sm-2 px-4 btn-lg" type="submit">Search</button>
+                        </form>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <img class="img-fluid" src="/static/find.webp" alt="">
+                            </div>
+                            <div class="col-lg-6 col-md-12 pt-5">
+                            <h4 class="text-muted"><small>
+                                At CodeTrack, we believe in the power of community and collaboration. 
+                                That's why CodeTrack designed to help you find and connect with your friends for easy collaboration.
+                                CodeTrack makes it easy to discover and add your friends who are actively using CodeTrack and keep an eye on their profile.
+                            </small></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+<section class="codetrack">
+    <div class="container text-center">
+        <div class="row text-center" style="--bs-columns:3; --bs-gap: 2rem;">
+            <div class="p-3 col-sm-12 col-md-4 col-lg-3 text-left">
+                <h3 class="title-text text-primary">What is Coderack?<hr class="mr-4"></h3> 
+                <p>
+                    Coderack is your one-stop solution for tracking and managing your coding journey across various platforms. 
+                    We understand that every coder has their preferred platforms for honing their skills and participating in competitions. 
+                    With Coderack, you can now keep all your coding progress, statistics, and contests in one place.
+                </p>
+                <a href="/about"><button class="btn btn-outline-primary">
+                    Learn more...
+                </button></a>
+            </div>
+            <!-- {% load static % -->
+            <div class=" p-3 col-sm-12 col-md-4 col-lg-5"><img class="img-fluid" src="/static/img2.webp" alt=""></div>
+            <div class=" col-sm-12 col-md-4 col-lg-4">
+                <h3 class="text-left text-primary">Our Key Features<hr class="mr-5"></h3> 
+                <ul class="list-group list-group-flush text-left">
+                    <li class="list-group-item"> <span><b class="text-primary">Unified Dashboard:</b> Get a bird's-eye view of your progress on LeetCode, CodeForces, and CodeChef, all in one place.</span></li>
+                    <li class="list-group-item"> <span><b class="text-primary">Progress Tracking:</b> Monitor your problem-solving skills, contest performance, and coding streaks effortlessly.</span></li>
+                    <li class="list-group-item"> <span><b class="text-primary">Competitive Insights:</b> Compare your performance with peers and identify areas for improvement.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="last-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-7 mt-4">
+                <img class="img-fluid" src="/static/coding.gif" alt="">
+            </div>
+            <div class="col-sm-12 col-md-5 mt-4 pt-4 text-center">
+                <div class="mt-5 pt-3"></div>
+                <div class="m-3">
+                <h2 class="text-dark">TaDaa!</h2>
+                <p>You've reached the end of the page. We're thrilled to have joined you on this journey, and to see what lies ahead.
+                    Continue to explore, learn, and innovate. CodeTrack will be here to support you every step of the way.
+                </p>
+                {% if not request.user.is_authenticated%}
+                <a href="/register"><button class="btn btn-primary mt-3 px-5">Join Now</button></a>
+                {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        var searchData = document.getElementById("searchInput").value;
+        window.location.href = "/accounts/profile/" + searchData;
+});
+</script>
+
+{%endblock%}

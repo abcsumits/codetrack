@@ -1,0 +1,64 @@
+<div class="fixed-top">
+    <nav class="navbar navbar-expand-lg bg-light navbar-light px-4 py-2">
+        <div class="container-fluid ">
+            <h1><a href="/" class="navbar-brand px-3"><b class="text-primary"><span
+                            class="text-dark">Code</span>Track</b></a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse px-5" id="myNavbar">
+                <ul class="navbar-nav ml-auto px-2">
+                    <!-- add an extra class name " active" for the  page on navbar we are currently on
+                        e.g. if we are on HOME-> <li class="nav-item p-2"><a class="nav-link active" href="#">HOME</a></li> -->
+                    <li class="nav-item p-2 {% if 'home' in request.path %} active {% endif%} "><a class="nav-link "
+                            href="/home">HOME</a></li>
+                    <!-- <li class="nav-item p-2 {% if about in request.path %}active {% endif%} "><a class="nav-link " href="#">ABOUT</a></li> -->
+                    <li class="nav-item p-2 {% if 'leaderboard' in request.path %}active {% endif%}"><a class="nav-link "
+                            href="/accounts/leaderboard/@">LEADERBOARD</a></li>
+                    <li class="nav-item p-2 {% if 'about' in request.path %}active {% endif%}"><a class="nav-link "
+                            href="/about">ABOUT US</a></li>
+                    <!-- <li class="nav-item p-2 "><a class="nav-link" href="#">CONTACT US</a></li> -->
+                    {% if not request.user.is_authenticated%}
+                    <li class="nav-item p-2"><a href="/login"><button class="btn btn-primary" type="button">Login
+                            </button></a></li>
+                    <li class="nav-item p-2"><a href="/register"><button class="btn btn-outline-primary"
+                                type="button">Register</button></a></li>
+                    {% else %}
+                    <li class="nav-item p-2 {% if 'profile' in request.path %}active {% endif%}"><a class="nav-link "
+                        href="/accounts/profile/{{request.user}}">PROFILE</a></li>
+                        <li class="nav-item p-2  {% if 'settings' in request.path %}active {% endif%}"><a class="nav-link "
+                            href="/settings">SETTINGS</a></li>
+                    <li class="nav-item p-2"><a href="/logout"><button class="btn btn-outline-danger"
+                                type="button">Logout</button></a></li>
+                    {% endif%}
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <section class="alert pt-2 position-relative">
+       <div class="container justify-content-center align-items-center">
+            {% if greenalert %}
+            <div class="row text-center justify-content-center">
+                <div class="alert alert-success alert-dismissible fade show col-lg-6 col-md-6 col-sm-12" role="alert">
+                    {{greenalert}} 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+            {% if redalert %}
+            <div class="row text-center justify-content-center">
+        <div class="alert alert-warning alert-dismissible fade show col-lg-6 col-md-6 col-sm-12" role="alert">
+            {{redalert}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+        </div>
+    </section>
+</div>

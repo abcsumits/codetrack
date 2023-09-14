@@ -1,0 +1,184 @@
+{% extends 'base.html'%}
+{% block start%}
+<style>
+    .table {
+        display: table;
+        border-collapse: collapse;
+        margin: 10px;
+        width: 100%;
+        /* Make the table take up the full width */
+    }
+
+    .row {
+        display: table-row;
+    }
+
+    .cell {
+        display: table-cell;
+        border: 1px solid #ccc;
+        padding: 5px;
+        text-align: center;
+        /* Center-align content within cells */
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 600px) {
+        .table {
+            display: block;
+            /* Change to block layout on smaller screens */
+        }
+
+        .row {
+            display: block;
+            /* Change to block layout for rows */
+            margin-bottom: 10px;
+            /* Add some spacing between rows */
+        }
+
+        .cell {
+            display: block;
+            /* Change to block layout for cells */
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+    {% include 'nav.html'%}
+    <section class="mt-5 pt-5 text-center">
+        <h2 class="text title-text text-primary my-3">Leaderboard</h2>
+        <section class="search-area">
+            <div class="container">
+                <div class="center-div mx-lg-5">
+                    <form class="form-inline d-flex py-3" id="searchForm">
+                        <input class="rounded-pill form-control flex-grow-1 mr-sm-2 p-4" id="searchInput" type="search"
+                            placeholder="Search an institute" aria-label="Search" required>
+                        <button class="btn btn-outline-primary rounded-pill mr-sm-2 px-4 btn-lg"
+                            type="submit">Search</button>
+                    </form>
+                </div>
+        </section>
+
+        <div class="container">
+            <hr>
+            <div class="input-group align-items-center">
+                <label class="mx-3">Sort by:</label>
+                <select class="form-select rounded mr-3 px-3 py-2" id="inputGroupSelect"
+                    aria-label="Example select with button addon">
+                    <option value="0" selected>Default</option>
+                    <option value="1">Leetcode</option>
+                    <option value="2">Codechef</option>
+                    <option value="3">Codeforces</option>
+                </select>
+                <button class="btn btn-outline-primary" type="button" id="applyButton">Apply</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="table-container">
+                    <thead>
+                        <tr class="text-light" style="background-color: #7f859b;">
+                            <th scope="col">Rank</th>
+                            <th scope="col"><span class="text-light"> username</span></th>
+                            <th scope="col"><span> Leetcode<span style="color: rgb(218, 218, 255);"></span></span>
+                            </th>
+                            <th scope="col">Codechef<span class="" style="color: rgb(255, 237, 144);"></span></th>
+                            <th scope="col">Codeforces<span style="color: rgba(195, 215, 255, 0.779);"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5 py-5">
+        
+    </section>
+
+    {% include 'footer.html'%}
+
+    <script>
+        const data = JSON.parse('{{friends|escapejs }}');
+
+        function sortData(selectedOption) {
+            data.sort((a, b) => {
+                let colIndex;
+                switch (selectedOption) {
+                    case "1":
+                        colIndex = 1;
+                        break;
+                    case "2":
+                        colIndex = 2;
+                        break;
+                    case "3":
+                        colIndex = 3;
+                        break;
+                    default:
+                        colIndex = 1;
+                }
+                if (a[colIndex] === b[colIndex]) {
+                    return 0;
+                } else if (a[colIndex] === "-") {
+                    return 1;
+                } else if (b[colIndex] === "-") {
+                    return -1;
+                } else {
+                    return b[colIndex] - a[colIndex];
+                }
+            });
+            addRowsToTable(data);
+        }
+
+        function addRowsToTable(data) {
+            const tableBody = document.querySelector("#table-container tbody");
+            tableBody.innerHTML = "";
+            let rank = 1;
+            data.forEach(rowData => {
+                const newRow = document.createElement("tr");
+                const curruser="{{request.user}}";
+                if (rowData[0] === curruser) {
+                    newRow.style.backgroundColor = "rgba(206, 222, 255,0.7)";
+                }
+                
+                const rankcell = document.createElement("td");
+                rankcell.classList.add("font-weight-bold");
+                rankcell.textContent = rank;
+                rank++;
+                newRow.appendChild(rankcell);
+                rowData.forEach(cellData => {
+                    const cell = document.createElement("td");
+                    if (typeof cellData === "string" && cellData != "-") {
+                        const anchor = document.createElement("a");
+                        anchor.href = `/accounts/profile/${cellData}`;
+                        anchor.textContent = cellData;
+                        cell.appendChild(anchor);
+                    } else {
+                        cell.textContent = cellData;
+                    }
+                    newRow.appendChild(cell);
+                });
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        const applyButton = document.querySelector("#applyButton");
+        applyButton.addEventListener("click", function () {
+            const dropdown = document.querySelector("#inputGroupSelect");
+            const selectedOption = dropdown.value;
+            sortData(selectedOption);
+        });
+
+        sortData("0");
+
+        document.getElementById("searchForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var searchData = document.getElementById("searchInput").value;
+            window.location.href = "/accounts/leaderboard/" + searchData;
+        });
+    </script>
+
+
+    {%endblock%}

@@ -1,0 +1,51 @@
+{%extends 'base.html' %}
+{% block start%}
+</head>
+
+<body>
+    {% include 'nav.html'%}
+    <div class="container mt-5 pt-5">
+        <div class="row ">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <h2 class="text-muted mx-3">Manage Sites/Generate Token</h2>
+                <div class="login">
+                    {% csrf_token %}
+                    <ul class="mt-5 list-group list-group-flush">
+                        
+                        <li class="mt-2 list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6><i class="fa fa-university mx-2"></i>Change or Add institute</h6>
+                                <a href="/settings/institute" class="btn btn-primary "> <span class="mx-4">Edit</span></a>
+                            </div>
+                        </li>
+                        <li class=" mt-2 list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6><img class="mr-2" src="/static/lc.webp" style="height: 1.4rem;">Change or Add
+                                    Leetcode Account</h6>
+                                <a href="/settings/leetcode_name" class="btn btn-primary "> <span class="mx-4">Edit</span></a>
+                            </div>
+                        </li>
+                        <li class=" mt-2 list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6><img class="mr-2" src="/static/cf.png" style="height: 1.4rem;">Change or Add
+                                    CodeForces Account</h6>
+                                <a href="/settings/codeforces_name" class="btn btn-primary "> <span class="mx-4">Edit</span></a>
+                            </div>
+                        </li>
+                        <li class=" mt-2 list-group-item border-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6><img class="mr-2" src="/static/cc.png" style="height: 1.4rem;">Change or Add
+                                    CodeChef Account</h6>
+                                <a href="/settings/codechef_name" class="btn btn-primary "> <span class="mx-4">Edit</span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block mt-5">
+                <img  class="img-fluid " src="/static/settings.avif" alt="">
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+    {%endblock%}

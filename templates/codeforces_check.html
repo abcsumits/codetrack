@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block start%}
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <div class="my-5 py-5 container justify-content-center row" style="margin:auto;">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <div class=" flex d-flex mt-3">
+                <h2 class="text-primary"><img class="img-fluid" src="/static/cf.png" alt="" style="max-height: 3rem;"> CodeForces Username: <small class="text-secondary">{{username}}</small></h2>
+                {% comment %} <p>{{username}} </p>{% endcomment %}
+            </div>
+
+            <div class="flex d-flex mt-5">
+                <h2 class=" mt-2 mr-2">Token:</h2>
+
+                <div class="flex-grow-1  d-flex justify-content-between bg-light rounded border ml-1 mb-2 p-2">
+                    {% comment %}
+                    <div class="card-body copy-token flex-grow-1"> {% endcomment %}
+                        <h5 type="text"  class="text text-muted mt-1" id="tokenText" >{{token}}</h5>
+                        {% comment %}
+                    </div> 
+                    {% endcomment %}
+                    <button class=" ml-3 mr-0 btn btn-sm btn-outline-primary" id="copyButton">
+                        Copy
+                    </button>
+                </div>
+            </div>
+            <div class="my-3 text-center">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-block btn-lg btn-primary"><span class="px-5 mx-4">Validate
+                            Account</span></button>
+                </form>
+            </div>
+            <div>
+                <ul class="list-group list-group-flush">
+                    <p class="d-flex flex"><b class="mr-2 my-0">Step1: </b> Go to CodeForces and change your name(not
+                        username) to token</p>
+                    <p class="d-flex flex"><b class="mr-2">Step2: </b> After changing the name click Validate Account
+                    </p>
+                    <p class="d-flex flex"><b class="mr-2">Step3: </b> Now you can set your name as it was</p>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copyButton').addEventListener('click', function () {
+            var textToCopy = document.getElementById('tokenText').innerText;
+            var tempInput = document.createElement('input');
+            tempInput.setAttribute('value', textToCopy);
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); 
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            var copyButton = document.getElementById('copyButton');
+            copyButton.textContent = 'Copied!';
+            setTimeout(function () {
+                copyButton.textContent = "Copy";
+            }, 2000);
+        });
+    </script>
+    {%endblock%}

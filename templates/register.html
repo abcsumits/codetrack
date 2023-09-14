@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block start %}
+</head>
+<body>
+{% include 'nav.html'%}
+<div class="mt-5 py-5"></div>
+
+{% comment %}  
+{% endcomment %}
+
+<div class="mt-2 py-2"></div>
+    <div class="container justify-content-center row" style="margin: auto;">
+    <form class="col-lg-6 col-md-6 col-sm-12" method="post">
+      {% csrf_token %}
+        <h1 class="text-center m-2">Sign Up</h1>
+        <div class="form-outline mb-4">
+          <input type="text" name="first_name" class="form-control" placeholder="First Name" required="required" />
+        </div>
+        <div class="form-outline mb-4">
+          <input type="text" name="last_name" class="form-control" placeholder="Last Name" required="required" />
+        </div>
+        <div class="form-outline mb-4">
+            <input type="email" name="email" class="form-control" placeholder="Email" required="required" />
+        </div>
+        <div class="form-outline outline-dark mb-4">
+            <input type="text" name="username" class="form-control" placeholder="Username" required="required" />
+          <p class="m-1 text-secondary" style="font-size: smaller;"><small>Note1: Username should not contain spaces and @<br> Note2: Account will be created after verifying your email</small></p>
+        </div>
+      
+        <button type="submit" class="btn btn-primary btn-block mb-4">Create Account</button>
+    
+        <div class="text-small text-center">
+            <p>Already a user? <a href="/login">Login</a></p>
+        </div>
+      </form>
+    </div>
+    <div class="mt-5 py-5"></div>
+    {% endblock %}

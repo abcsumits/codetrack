@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+{% block start%}
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/codetrack.js"></script>
+</head>
+<body>
+    {%include 'nav.html'%}
+
+    <section class="mt-5 py-5">
+        <div class="container pt-4">
+            <div class="row ">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <img class="img-fluid " src="/static/pro.svg" alt="">
+                </div>
+                <div class="col-lg-7 col-md-12 ">
+                    <div class="text-center text-lg-left">
+                        <h1 id="name" class="h-1 text-primary mt-2" style="font-size: 3rem;">{{first_name}} {{last_name}}</h1>
+                        <a href="/accounts/leaderboard/{{institute}}"><h4 id="institute" class="text-dark pl-2 "><small>{{institute}}</small></a>
+                        </h4>
+                        <h3 id="username" class="text-secondary"><i class="fa fa-user px-2 text-muted"></i>{{user}}
+                        </h3>
+                        <div class="ml-auto">
+                            <div
+                                class="d-flex flex-lg-row align-items-center  justify-content-center justify-content-lg-start">
+                                <div class="border p-1 px-3 rounded align-items-center ">
+                                    <h6 class="mt-2" style="font-size: larger;">
+                                        <span class="font-weight-bold text-primary">{{follower}} </span><span
+                                            class="text-muted"><small>Followers</small></span>
+                                    </h6>
+                                </div>
+                                <div>
+                                    {%if not request.user.is_authenticated%}
+                                        <a href="/login"><button class="btn my-3 mx-2 px-3 btn-lg btn-success">+Follow</button></a>
+                                    {%elif addfriend  == 2 and request.user.is_authenticated%}
+                                        <a href="/accounts/friend/{{user}}"><button class="btn my-3 mx-2 px-3 btn-lg btn-outline-danger">Unfollow</button></a>
+                                    {%elif  addfriend == 1 and request.user.is_authenticated%}
+                                        <a href="/accounts/friend/{{user}}"><button class="btn my-3 mx-2 px-3 btn-lg btn-success">+Follow</button></a>
+                                    {%else%}
+                                        <div></div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="border-right col-xl-4 col-lg-4 col-md-12 col-sm-12 justify-content-center">
+                    <div class="container logo-n-head">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid" src="/static/lc.webp" alt="" style="max-width: 3rem;"></div>
+                            <h1 class=""> Leetcode</h1>
+                        </div>
+                    </div>
+
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2"></i><span
+                                id="lc-username">{{lc.0}}</span></h5>
+                    </div>
+
+                    <div class=" pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0" id="lcRating"> <span>{{lc.2.data.userContestRanking.rating|floatformat:0}}</span></h1>
+                        </div>
+                    </div>
+                    <div class="toggle-wala-btn">
+                        <p class="mt-4">
+
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Where do I stand?
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th scope="col">#</th> -->
+                                            <th scope="col">Div</th>
+                                            <th scope="col">Rating range</th>
+                                            <!-- <th scope="col">Handle</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-secondary">
+                                            <!-- <th scope="row">1</th> -->
+                                            <td>Bronze</td>
+                                            <td> &#60 1200</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        <tr class="table-success">
+                                            <!-- <th scope="row">2</th> -->
+                                            <td>Silver</td>
+                                            <td>1200-1599</td>
+                                            <!-- <td>@fat</td> -->
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Gold</td>
+                                            <td>1600-1999</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Platinum</td>
+                                            <td>2000-2399</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Diamond</td>
+                                            <td>2400+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-justify">
+                                    <br>
+                                    Please note that these rating divisions are subject to change as LeetCode may adjust
+                                    its rating system over time. Ratings are typically updated after participating in
+                                    LeetCode Weekly Contests and other rated contests on the platform.
+                                    Users can track their ratings and progress on their LeetCode profiles.
+                                    <br>For the most up-to-date information on LeetCode's rating divisions and how they
+                                    are calculated, I recommend visiting the LeetCode website and checking their
+                                    official documentation or rating system page.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex" style="height: 10rem;">
+                    <div class="vr"></div>
+                </div>
+                <div class="vr"></div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <div class="logo-n-head container">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid p-1" src="/static/cf.png" alt="" style="max-width: 3rem;"></div>
+                            <h1 class=""> Code<span style="color: rgb(58, 58, 125);">Forces</span></h1>
+                        </div>
+                    </div>
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2"></i>{{cf.0}}</h5>
+                    </div>
+                    <div class=" pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0">{{cf.1.result.0.rating}}</h1>
+                        </div>
+                    </div>
+                    <div class="collapse-wala-btn">
+                        <p class="mt-4">
+
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseExampleCF" aria-expanded="false"
+                                aria-controls="collapseExampleCF">
+                                Where do I stand?
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExampleCF">
+                            <div class="card card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th scope="col">#</th> -->
+                                            <th scope="col">Div</th>
+                                            <th scope="col">Rating range</th>
+                                            <!-- <th scope="col">Handle</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="" style="background-color: rgb(232, 232, 232);">
+                                            <!-- <th scope="row">1</th> -->
+                                            <td>Unrated</td>
+                                            <td> New User</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        <tr class="table-secondary">
+                                            <!-- <th scope="row">1</th> -->
+                                            <td>Newbie</td>
+                                            <td> &#60 1200</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        <tr class="table-success">
+                                            <!-- <th scope="row">2</th> -->
+                                            <td>Pupil</td>
+                                            <td>1200-1399</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td>Specialist</td>
+                                            <td>1400-1599</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Expert</td>
+                                            <td>1600-1899</td>
+                                        </tr>
+                                        <tr class="" style="background-color: rgb(223, 196, 255);">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Candidate Master</td>
+                                            <td>1900-2099</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Master</td>
+                                            <td>2100-2299</td>
+                                        </tr>
+                                        <tr class="" style="background-color: rgb(255, 215, 176);">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>International Grandmaster</td>
+                                            <td>2300-2399</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>Legendary Grandmaster</td>
+                                            <td>2400+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-justify">
+                                    <br>
+                                    Please note that these rating divisions and rating ranges may change over time as Codeforces may adjust its rating system. Ratings are updated after participating in Codeforces contests, and users can track their progress on their Codeforces profiles.
+
+                                    <br>For the most up-to-date information on Codeforces' rating system and divisions, I recommend visiting the Codeforces website and checking their official documentation or rating system page.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-left col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <div class="logo-n-head container">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid" src="/static/cc.png" alt="" style="max-width: 3rem;"></div>
+                            <h1 class="" style="color: darkgoldenrod;">CodeChef</h1>
+                        </div>
+                    </div>
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2"></i> {{cc.0}}</h5>
+                    </div>
+                    <div class="rating pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0">{{cc.1.currentRating}}</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mt-4">
+
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseExampleCC" aria-expanded="false"
+                                aria-controls="collapseExampleCC">
+                                Where do I stand?
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExampleCC">
+                            <div class="card card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th scope="col">#</th> -->
+                                            <th scope="col">Div</th>
+                                            <th scope="col">Rating range</th>
+                                            <!-- <th scope="col">Handle</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="" style="background-color: rgb(232, 232, 232);">
+                                            <!-- <th scope="row">1</th> -->
+                                            <td>Unrated</td>
+                                            <td> New User</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        <tr class="table-secondary">
+                                            <!-- <th scope="row">1</th> -->
+                                            <td>1 <i class="fa fa-star"></i></td>
+                                            <td> &#60 1399</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        <tr class="table-success">
+                                            <!-- <th scope="row">2</th> -->
+                                            <td>2 <i class="fa fa-star"></td>
+                                            <td>1400-1599</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td>3 <i class="fa fa-star"></td>
+                                            <td>1600-1799</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>4 <i class="fa fa-star"></td>
+                                            <td>1800-1999</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>5 <i class="fa fa-star"></td>
+                                            <td>2000-2199</td>
+                                        </tr>
+                                        <tr class="" style="background-color: rgb(255, 215, 176);">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>6 <i class="fa fa-star"></td>
+                                            <td>2200-2399</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <!-- <th scope="row">3</th> -->
+                                            <td>7 <i class="fa fa-star"></td>
+                                            <td>2400+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-justify">
+                                    <br>
+                                    Please note that these rating divisions and rating ranges may change over time as
+                                    CodeChef may adjust its rating system or introduce new divisions. Ratings are
+                                    typically updated after participating in rated contests on the platform.
+
+                                    <br>For the most up-to-date information on CodeChef's rating system and divisions, I
+                                    recommend visiting the CodeChef website and checking their official documentation or
+                                    rating system page
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="general-info pt-4 d-none">
+        
+        <div class="container">
+            <div class="row text-center">
+                <div class="border-right col-xl-4 col-lg-4 col-md-12 col-sm-12 justify-content-center">
+                    <div class="container logo-n-head">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid" src="/static/lc.webp" alt="" style="max-width: 3rem;"></div>
+                            <h1 class=""> Leetcode</h1>
+                        </div>
+                    </div>
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2"></i>{%if lc %}{{lc.0}}{% else %}Not Available {% endif%}</h5>
+                    </div>
+    
+                    <div class=" pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0">
+                            {%if lc %}
+                                <div>
+                                {% with rating=lc.2.data.userContestRanking.rating|stringformat:"d" %}
+                                    {{ rating }}
+                                {% endwith %}
+                                </div>
+                            {% else %}Not Available 
+                            {% endif%}
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="pt-3 precentile d-flex align-items-center justify-content-center">
+                        <div class="progress-container">
+                            <div class="circular-progress" data-inner-circle-color="white" data-percentage="75"
+                                data-progress-color="green" data-bg-color="lightgrey">
+                                <div class="inner-circle"></div>
+                                <p class="percentage">0%ile</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questions mt-4 p-2">
+                        <h6 class="text-muted m-0">Solved Questions</h6>
+                        <h1 class="text-primary m-0 p-0">{% if lc%}{{lc.1.totalSolved}}{%else%}<span class="text-light">____</span>{% endif%}</h1>
+                    </div>
+                    <div class="graph bg-light p-3 m-5" style="height: 20rem;"></div>
+                </div>
+                <div class="d-flex" style="height: 10rem;">
+                    <div class="vr"></div>
+                </div>
+                <div class="vr"></div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <div class="logo-n-head container">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid p-1" src="/static/cf.png" alt="" style="max-width: 3rem;"></div>
+                            <h1 class=""> Code<span style="color: rgb(58, 58, 125);">Forces</span></h1>
+                        </div>
+                    </div>
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2 "></i>{%if cf %} {{cf.0}}{%else%}<span class="text-light">Not Available</span>{% endif%}</h5>
+                    </div>
+                    <div class=" pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0">{%if cf %} {{cf.1.result.0.rating}}{%else%}<span class="text-light">____</span>{% endif%}</h1>
+                        </div>
+                    </div>
+                    <div class="pt-3 precentile d-flex align-items-center justify-content-center">
+                        <div class=" progress-container">
+                            <div class="circular-progress" data-inner-circle-color="white" data-percentage="62"
+                                data-progress-color="#cc0000" data-bg-color="lightgrey">
+                                <div class="inner-circle"></div>
+                                <p class="percentage">0%ile</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questions mt-4 p-2">
+                        <h6 class="text-muted m-0">Solved Questions</h6>
+                        <h1 class="text-primary m-0 p-0">1276</h1>
+                    </div>
+                    <div class="graph bg-light p-5 m-5 m-5" style="height: 20rem;"></div>
+                </div>
+                <div class="border-left col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <div class="logo-n-head container">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div><img class="img-fluid" src="/static/cc.png" alt="" style="max-width: 3rem;"></div>
+                            <h1 class="" style="color: darkgoldenrod;">CodeChef</h1>
+                        </div>
+                    </div>
+                    <div class="username">
+                        <h5 style="color: rgb(175, 175, 175);"><i class="fa fa-user mr-2"></i>{%if cc %}{{cc.0}}{% else %}Not Available {% endif%}</h5>
+                    </div>
+                    <div class=" pt-2 rating d-flex align-items-center justify-content-center">
+                        <div class="bg-light rounded border border-0 "
+                            style="width: 10rem; box-shadow: 0px 0px 20px rgba(128, 128, 128, 0.334);">
+                            <h6 class="mt-1 mb-0 p-0 text-muted">Current rating:</h6>
+                            <h1 class="mt-0 mb-1 p-0">{%if cc %} {{cc.1.currentRating}}{%else%}<span class="text-light">____</span>{% endif%}</h1>
+                        </div>
+                    </div>
+                    <div class="pt-3 precentile d-flex align-items-center justify-content-center">
+                        <div class=" progress-container ">
+                            <div class="circular-progress" data-inner-circle-color="white" data-percentage="67"
+                                data-progress-color="darkgoldenrod" data-bg-color="lightgrey">
+                                <div class="inner-circle"></div>
+                                <p class="percentage">0%ile</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questions mt-4 p-2 ">
+                        <h6 class="text-muted m-0">Solved Questions</h6>
+                        <h1 class="text-primary m-0 p-0">{%if cc %} {{cc.2}}{%else%}<span class="text-light">____</span>{% endif%}</h1>
+                    </div>
+                    <div class="graph bg-light p-5 m-5 m-5" style="height: 20rem;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'footer.html' %}
+    {% endblock %}

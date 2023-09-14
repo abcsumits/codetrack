@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block start %}
+</head>
+<body>
+{% include 'nav.html' %}
+
+ 
+<div class="mt-5 py-5"></div>
+    <div class="container justify-content-center row" style="margin: auto;">
+    <form class="col-lg-6 col-md-6 col-sm-12" method="post">
+        {% csrf_token %}
+        <h1 class="text-center m-5">Log In</h1>
+        <div class="form-outline mb-4">
+          <input type="text"  class="form-control" placeholder="Enter your Username" name="username" required="required"/>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="password"  class="form-control" placeholder="Enter your password" name="password" required="required"/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+        <div class="text-small text-center">
+            <p>Not a member? <a href="/register">Register</a></p>
+            <p>Forgot Password? <a href="/forget_password">Reset Password</a></p>
+            <p>Forgot Username? <a href="/forget_username">See Username</a></p>
+        </div>
+      </form>
+    </div>
+    <div class="mt-5 py-5"></div>
+     
+    {% endblock %}
