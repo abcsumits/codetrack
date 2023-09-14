@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 from requests import get
 import json
 from django.http import HttpResponse
