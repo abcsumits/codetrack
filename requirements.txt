@@ -32,7 +32,6 @@ requests==2.31.0
 rsa==4.9
 six==1.16.0
 soupsieve==2.4.1
-SQLite==3.8.7.1
 sqlparse==0.4.4
 tzdata==2023.3
 uritemplate==4.1.1
