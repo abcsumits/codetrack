@@ -75,6 +75,7 @@ def leetcode(user_name):
     #headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
     url="https://leetcode.com/"+str(user_name)
     r=get(url)
+    #return False
     soup=BeautifulSoup(r.text,'html.parser')
     r=soup.find_all("script")[0]
     if len(r)==0:
