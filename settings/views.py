@@ -175,5 +175,9 @@ def codeforces(user_name):
     if r.status_code == 200:
         j=json.loads(r.text)
         if j['status']=='OK':
-            return j['result'][0]['firstName']
+            if j['status']=='OK':
+            if 'firstName' in j['result'][0]:
+                return j['result'][0]['firstName']
+            else:
+                return ""
     return False
