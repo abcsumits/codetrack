@@ -142,6 +142,8 @@ def leaderboard(request,token):
                 t.append(y)
             else:
                 t.append("-")
+        else:
+            t.append("-")
         if user_obj.codechef_verified:
             cc=codechef(user_obj.codechef)
             if cc:
@@ -152,6 +154,8 @@ def leaderboard(request,token):
                 t.append(y)
             else:
                 t.append("-")
+        else:
+            t.append("-")
         if user_obj.codeforces_verified:
             cf=codeforces(user_obj.codeforces)
             if cf:
@@ -162,6 +166,8 @@ def leaderboard(request,token):
                 t.append(y)
             else:
                 t.append("-")
+        else:
+            t.append("-")
         
         context['friends'].append(t)
     context['friends']=json.dumps(context['friends'])
