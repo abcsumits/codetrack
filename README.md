@@ -1,5 +1,5 @@
 CodeTrack
-bit.ly/code-track
+http://bit.ly/code-track
 
 Overview:
 CodeTrack is a comprehensive web application designed to streamline the process of tracking and managing competitive programming progress and achievements. This project involved the development of a feature-rich platform that enables users to monitor their ratings and rankings on popular coding competition websites such as Codeforces, LeetCode, and CodeChef. By integrating user authentication and verification, email communication, data scraping techniques, and the Codeforces API, CodeTrack offers a seamless experience for competitive programmers seeking to monitor their performance.
