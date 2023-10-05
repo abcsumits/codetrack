@@ -61,8 +61,9 @@ def codeforces(user_name):
     r=get(url)
     if r.status_code == 200:
         j=json.loads(r.text)
-        if j['status']=='OK':
-            return j
+        if 'status' in j:
+            if j['status']=='OK':
+                return j
     return False
 
 def leetcode2(user):
