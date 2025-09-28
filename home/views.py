@@ -3,10 +3,20 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.models import User
 from accounts.models import profile
 from django.core.mail import send_mail
+from django.conf import settings
+import os
 import uuid
 def about(request):
     return render(request,'about.html')
 def home(request):
+    info = {
+        'debug': settings.DEBUG,
+        'static_url': settings.STATIC_URL,
+        'static_dirs': settings.STATICFILES_DIRS,
+        'static_root': settings.STATIC_ROOT,
+        'static_files_exist': os.path.exists(settings.STATICFILES_DIRS[0]) if settings.STATICFILES_DIRS else False,
+    }
+    print(info)
     return render(request,'home.html')
 def log_in(request):
     if request.user.is_authenticated:
